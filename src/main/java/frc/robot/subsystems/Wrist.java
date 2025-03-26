@@ -40,6 +40,6 @@ public class Wrist extends SubsystemBase {
     }
 
     public void hold() {
-        wristMotor.setVoltage(0.5);
+        wristMotor.setVoltage(0.3);
     }
 }
