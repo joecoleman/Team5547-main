@@ -45,10 +45,10 @@ public class Wrist extends SubsystemBase {
  // Method to get the current rotations of the wrist
 
     public double getRotations() {
+        return wristMotor.getEncoder().getPosition();
 
     // Replace with actual logic to retrieve wrist rotations
 
-    return 5.0; // Example placeholder value
-
+    
 
     }}
