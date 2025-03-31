@@ -19,6 +19,8 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.BasicDriveAuton;
+import frc.robot.commands.EjectCoral;
+import frc.robot.commands.MoveWristToSetpoint;
 import frc.robot.commands.ResetGyro;
 import frc.robot.subsystems.AlgaeIntake;
 import frc.robot.subsystems.Climber;
@@ -108,7 +110,7 @@ public class RobotContainer {
     // CoralIntake
     m_operatorController.leftTrigger(0.1).whileTrue(new InstantCommand(() -> m_coralIntake.intake(0.2)))
         .onFalse(new InstantCommand(() -> m_coralIntake.stop()));
-    m_operatorController.leftBumper().whileTrue(new InstantCommand(() -> m_coralIntake.eject()))
+    m_operatorController.leftBumper().whileTrue(new InstantCommand(() -> m_coralIntake.eject(-0.5)))
         .onFalse(new InstantCommand(() -> m_coralIntake.stop()));
     // Wrist
     m_operatorController.x().whileTrue(new InstantCommand(() -> m_wrist.moveUp(1)))
@@ -132,6 +134,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // Set speed to .2 meters pre second; the driver needs to a-stop.
-    return new BasicDriveAuton(m_robotDrive);
-  }
+    return new MoveWristToSetpoint(m_wrist, 5).andThen(new BasicDriveAuton(m_robotDrive, 2)).andThen(new EjectCoral(m_coralIntake, -.5));
+}
 }

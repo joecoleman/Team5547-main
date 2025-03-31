@@ -5,45 +5,39 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.CoralIntake;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class BasicDriveAuton extends Command {
-  private final DriveSubsystem m_drive;
-  private final double distance;
-  private double encoderSetpoint;
+public class EjectCoral extends Command {
+  private final CoralIntake m_coralIntake;
+  private final double speed;
 
-  /** Creates a new BasicDriveAuton. */
-  public BasicDriveAuton(DriveSubsystem drive, double distance) {
-    this.m_drive = drive;
-    this.distance = distance;
-    addRequirements(drive);
+  public EjectCoral(CoralIntake coralIntake, double speed) {
+    this.m_coralIntake = coralIntake;
+    this.speed = speed;
+    addRequirements(coralIntake);
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-      encoderSetpoint = m_drive.getEncoderMeters() + distance;}
+  public void initialize() {}
+
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_drive.drive(.2, 0, 0, true);
+    m_coralIntake.eject(speed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_drive.drive(0, 0, 0, true);
+    m_coralIntake.stop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (m_drive.getEncoderMeters() > encoderSetpoint) {
-      return true;
-    } else {
-      return false;
-    }
-
+    return false;
   }
 }

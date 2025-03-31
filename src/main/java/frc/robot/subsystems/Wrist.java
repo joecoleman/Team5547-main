@@ -42,4 +42,13 @@ public class Wrist extends SubsystemBase {
     public void hold() {
         wristMotor.setVoltage(0.3);
     }
-}
+ // Method to get the current rotations of the wrist
+
+    public double getRotations() {
+
+    // Replace with actual logic to retrieve wrist rotations
+
+    return 5.0; // Example placeholder value
+
+
+    }}

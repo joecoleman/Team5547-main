@@ -5,45 +5,42 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.Wrist;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class BasicDriveAuton extends Command {
-  private final DriveSubsystem m_drive;
-  private final double distance;
-  private double encoderSetpoint;
-
-  /** Creates a new BasicDriveAuton. */
-  public BasicDriveAuton(DriveSubsystem drive, double distance) {
-    this.m_drive = drive;
-    this.distance = distance;
-    addRequirements(drive);
+public class MoveWristToSetpoint extends Command {
+  private Wrist m_wrist;
+  private double targetRotations;
+  /** Creates a new MoveWristToSetpoint. */
+  public MoveWristToSetpoint(Wrist wrist, double targetRotations) {
+    this.m_wrist = wrist;
+    this.targetRotations = targetRotations;
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-      encoderSetpoint = m_drive.getEncoderMeters() + distance;}
+  public void initialize() {}
+
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_drive.drive(.2, 0, 0, true);
+    m_wrist.moveUp(.1);
   }
 
   // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-    m_drive.drive(0, 0, 0, true);
-  }
+
+  
 
   // Returns true when the command should end.
   @Override
-  public boolean isFinished() {
-    if (m_drive.getEncoderMeters() > encoderSetpoint) {
-      return true;
-    } else {
-      return false;
-    }
+  public boolean isFinished(){
+    return m_wrist.getRotations() > targetRotations;}
 
-  }
-}
+  @Override
+  public void end(boolean interrupted) {
+      m_wrist.hold();
+    }}
+   
+   
+

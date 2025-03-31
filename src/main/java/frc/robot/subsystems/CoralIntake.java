@@ -23,11 +23,13 @@ public class CoralIntake extends SubsystemBase {
         intakeMotor.set(speed); // Set motor to intake
     }
 
-    public void eject() {
+    public void eject(double speed) {
         intakeMotor.set(-.5); // Set motor to eject
     }
 
     public void stop() {
         intakeMotor.stopMotor(); // Stop the motor
     }
+
+    
 }

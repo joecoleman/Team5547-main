@@ -187,5 +187,14 @@ public class DriveSubsystem extends SubsystemBase {
   public double getTurnRate() {
     return m_gyro.getTurnRate();
   }
+
+    
+
+   public double getEncoderMeters() {
+
+       // Replace this with the actual implementation to retrieve encoder meters
+
+       return 1.0; // Example placeholder value
+  }
 }
 
