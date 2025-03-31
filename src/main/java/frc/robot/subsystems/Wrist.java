@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
@@ -24,6 +25,7 @@ public class Wrist extends SubsystemBase {
 
     @Override
     public void periodic() {
+        SmartDashboard.putNumber("Wrist Pos", getEncoderVal()); // Display wrist encoder value
         // This method will be called once per scheduler run
     }
 
@@ -46,9 +48,15 @@ public class Wrist extends SubsystemBase {
 
     public double getRotations() {
         return wristMotor.getEncoder().getPosition();
+    }
 
     // Replace with actual logic to retrieve wrist rotations
 
+    // Method to get the encoder value of the wrist
+    public double getEncoderVal() {
+        return wristMotor.getEncoder().getPosition();
+    }
+
     
 
-    }}
+    }
