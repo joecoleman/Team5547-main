@@ -139,13 +139,13 @@ public class RobotContainer {
    public Command getAutonomousCommand() {
     return new SequentialCommandGroup(
         // Move the wrist and elevator to their setpoints simultaneously
-        new ParallelCommandGroup(
-            new MoveWristToSetpoint(m_wrist, 15).withTimeout(1),
-            new MoveElevatorToSetpoint(m_elevator, 30).withTimeout(2)
-        ),
+        //new ParallelCommandGroup(
+        new MoveWristToSetpoint(m_wrist, 18).withTimeout(2),
+        new MoveElevatorToSetpoint(m_elevator, 10).withTimeout(2)
+        ,
 
         // Drive the robot autonomously
-        new BasicDriveAuton(m_robotDrive, 2),
+        new BasicDriveAuton(m_robotDrive, 2.2),
 
         // Eject the coral with a timeout
         new EjectCoral(m_coralIntake, -0.1).withTimeout(1.5)
