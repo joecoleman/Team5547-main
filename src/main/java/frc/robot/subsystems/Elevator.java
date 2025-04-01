@@ -29,4 +29,12 @@ public class Elevator extends SubsystemBase {
     public void hold () {
         elevatorMotor.setVoltage(.2); // hold output to set number
     }
+
+    public double getRotations() {
+       return elevatorMotor.getEncoder().getPosition();
+    }
+
+    public double getEncoderVal() {
+        return elevatorMotor.getEncoder().getPosition();
+    }
 }

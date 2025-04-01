@@ -28,8 +28,6 @@ public class MoveWristToSetpoint extends Command {
     m_wrist.moveUp(.1);
   }
 
-  // Called once the command ends or is interrupted.
-
   
 
   // Returns true when the command should end.

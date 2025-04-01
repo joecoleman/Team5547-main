@@ -19,6 +19,7 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.BasicDriveAuton;
+import frc.robot.commands.MoveElevatorToSetpoint;
 import frc.robot.commands.EjectCoral;
 import frc.robot.commands.MoveWristToSetpoint;
 import frc.robot.commands.ResetGyro;
@@ -133,7 +134,8 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // Set speed to .2 meters pre second; the driver needs to a-stop.
-    return new MoveWristToSetpoint(m_wrist, 5).andThen(new BasicDriveAuton(m_robotDrive, 2)).andThen(new EjectCoral(m_coralIntake, -.5));
+    return new MoveWristToSetpoint(m_wrist, 15)
+        .andThen(new MoveElevatorToSetpoint(m_elevator, 30))
+        .andThen(new EjectCoral(m_coralIntake, -0.5));
 }
 }
