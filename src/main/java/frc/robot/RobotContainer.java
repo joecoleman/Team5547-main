@@ -32,7 +32,9 @@ import frc.robot.subsystems.Gyro;
 import frc.robot.subsystems.Wrist;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -133,9 +135,20 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
-    return new MoveWristToSetpoint(m_wrist, 15)
-        .andThen(new MoveElevatorToSetpoint(m_elevator, 30))
-        .andThen(new EjectCoral(m_coralIntake, -0.5));
+
+   public Command getAutonomousCommand() {
+    return new SequentialCommandGroup(
+        // Move the wrist and elevator to their setpoints simultaneously
+        new ParallelCommandGroup(
+            new MoveWristToSetpoint(m_wrist, 15).withTimeout(1),
+            new MoveElevatorToSetpoint(m_elevator, 30).withTimeout(2)
+        ),
+
+        // Drive the robot autonomously
+        new BasicDriveAuton(m_robotDrive, 2),
+
+        // Eject the coral with a timeout
+        new EjectCoral(m_coralIntake, -0.1).withTimeout(1.5)
+    );
 }
 }

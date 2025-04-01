@@ -11,6 +11,8 @@ import frc.robot.subsystems.DriveSubsystem;
 public class BasicDriveAuton extends Command {
   private final DriveSubsystem m_drive;
   private final double distance;
+  private double encoderSetpoint;
+
 
   /** Creates a new BasicDriveAuton. */
   public BasicDriveAuton(DriveSubsystem drive, double distance) {
@@ -22,7 +24,7 @@ public class BasicDriveAuton extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-      m_drive.resetEncoders();}
+      encoderSetpoint = m_drive.getPose().getX() + distance;}
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
@@ -36,9 +38,11 @@ public class BasicDriveAuton extends Command {
   }
 
   // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return m_drive.getPose().getX() > distance;
-
-  }
+@Override
+public boolean isFinished() {
+  if (m_drive.getPose().getX() >= encoderSetpoint)
+    return true;
+  else
+    return false;
+}
 }
