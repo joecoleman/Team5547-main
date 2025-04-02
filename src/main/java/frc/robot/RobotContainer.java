@@ -23,7 +23,7 @@ import frc.robot.commands.MoveElevatorToSetpoint;
 import frc.robot.commands.EjectCoral;
 import frc.robot.commands.MoveWristToSetpoint;
 import frc.robot.commands.ResetGyro;
-import frc.robot.subsystems.AlgaeIntake;
+//import frc.robot.subsystems.AlgaeIntake;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.CoralIntake;
 import frc.robot.subsystems.DriveSubsystem;
@@ -53,7 +53,7 @@ public class RobotContainer {
   // The robot's subsystems
   private final Gyro m_gyro = new Gyro();
   private final DriveSubsystem m_robotDrive = new DriveSubsystem(m_gyro);
-  private final AlgaeIntake m_algaeIntake = new AlgaeIntake();
+  //private final AlgaeIntake m_algaeIntake = new AlgaeIntake();
   private final Climber m_climber = new Climber();
   private final Elevator m_elevator = new Elevator();
   private final CoralIntake m_coralIntake = new CoralIntake();
@@ -101,10 +101,10 @@ public class RobotContainer {
      //       () -> m_robotDrive.resetGyro(),
      //       m_robotDrive));
     // AlgaeIntake
-    m_driverController.rightBumper().whileTrue(new InstantCommand(() -> m_algaeIntake.intake(0.7)))
-        .onFalse(new InstantCommand(() -> m_algaeIntake.stop()));
-    m_driverController.leftBumper().whileTrue(new InstantCommand(() -> m_algaeIntake.eject()))
-        .onFalse(new InstantCommand(() -> m_algaeIntake.stop()));
+    //m_driverController.rightBumper().whileTrue(new InstantCommand(() -> m_algaeIntake.intake(0.7)))
+        //.onFalse(new InstantCommand(() -> m_algaeIntake.stop()));
+    //m_driverController.leftBumper().whileTrue(new InstantCommand(() -> m_algaeIntake.eject()))
+        //.onFalse(new InstantCommand(() -> m_algaeIntake.stop()));
     // Climber
     m_operatorController.start().whileTrue(new InstantCommand(() -> m_climber.climb(1)))
         .onFalse(new InstantCommand(() -> m_climber.stopClimb()));
