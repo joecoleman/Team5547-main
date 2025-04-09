@@ -8,11 +8,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Wrist;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class MoveWristToSetpoint extends Command {
+public class MoveWristToDownpoint extends Command {
   private Wrist m_wrist;
   private double targetRotations;
   /** Creates a new MoveWristToSetpoint. */
-  public MoveWristToSetpoint(Wrist wrist, double targetRotations) {
+  public MoveWristToDownpoint(Wrist wrist, double targetRotations) {
     this.m_wrist = wrist;
     this.targetRotations = targetRotations;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -25,7 +25,7 @@ public class MoveWristToSetpoint extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_wrist.moveUp(.15);
+    m_wrist.moveDown(.15);
   }
 
   

@@ -19,7 +19,9 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.BasicDriveAuton;
+import frc.robot.commands.BasicDriveAutonLeft;
 import frc.robot.commands.MoveElevatorToSetpoint;
+import frc.robot.commands.MoveWristToDownpoint;
 import frc.robot.commands.EjectCoral;
 import frc.robot.commands.MoveWristToSetpoint;
 import frc.robot.commands.ResetGyro;
@@ -140,15 +142,17 @@ public class RobotContainer {
     return new SequentialCommandGroup(
         // Move the wrist and elevator to their setpoints simultaneously
         //new ParallelCommandGroup(
-        new MoveWristToSetpoint(m_wrist, 18).withTimeout(2),
-        new MoveElevatorToSetpoint(m_elevator, 55).withTimeout(2)
+        new MoveWristToSetpoint(m_wrist, 18).withTimeout(1),
+        new MoveElevatorToSetpoint(m_elevator, 1).withTimeout(1)
         ,
 
         // Drive the robot autonomously
-        new BasicDriveAuton(m_robotDrive, 2),
-
+        new BasicDriveAuton(m_robotDrive, 2.2).withTimeout(3.2),
+        new BasicDriveAutonLeft(m_robotDrive, .25).withTimeout(1),
         // Eject the coral with a timeout
-        new EjectCoral(m_coralIntake, -0.1).withTimeout(1.5)
+        new EjectCoral(m_coralIntake, -0.001).withTimeout(1.5),
+        new MoveWristToDownpoint(m_wrist, 12).withTimeout(.5)
+
     );
 }
 }
